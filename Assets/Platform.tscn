@@ -1,25 +1,24 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://PlatformContour.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 10, 10 )
 
-[node name="Platform" type="StaticBody2D"]
+[node name="Platform" type="KinematicBody2D" groups=[
+"echolocation",
+]]
 
-editor/display_folded = true
 position = Vector2( 250, 300 )
 scale = Vector2( 6, 0.5 )
 input_pickable = true
-collision_layer = 1
-collision_mask = 1
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
-_sections_unfolded = [ "Transform" ]
+collision_layer = 3
+collision_mask = 3
+collision/safe_margin = 0.08
+_sections_unfolded = [ "Collision", "Transform" ]
 
 [node name="Sprite" type="Sprite" parent="."]
 
@@ -31,5 +30,6 @@ _sections_unfolded = [ "Transform" ]
 position = Vector2( -0.0712786, 0.204853 )
 scale = Vector2( 3.2077, 3.43631 )
 shape = SubResource( 1 )
+script = ExtResource( 2 )
 
 
