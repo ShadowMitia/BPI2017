@@ -1,13 +1,30 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
-[ext_resource path="res://EchoLocation.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Images/Aisha ne bouge pas.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Images/A3.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Images/A1.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Images/A2.png" type="Texture" id=5]
+[ext_resource path="res://EchoLocation.gd" type="Script" id=6]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="SpriteFrames" id=4]
+
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "Resting",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "Moving",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=3]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10, 11.3463 )
+extents = Vector2( 10.9122, 27.4598 )
 
 [sub_resource type="CircleShape2D" id=2]
 
@@ -16,21 +33,28 @@ radius = 10.0
 
 [node name="Player" type="KinematicBody2D"]
 
+z = 100
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
+_sections_unfolded = [ "Z" ]
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite" type="AnimatedSprite" parent="."]
 
-texture = ExtResource( 2 )
+position = Vector2( -19.8057, 1.76051 )
+scale = Vector2( 0.3, 0.3 )
+frames = SubResource( 4 )
+animation = "Resting"
+playing = true
+_sections_unfolded = [ "Transform" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
 position = Vector2( 0.117146, -0.192604 )
 scale = Vector2( 3.29049, 2.98835 )
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 
 [node name="EchoLocation" type="KinematicBody2D" parent="."]
 
@@ -38,10 +62,8 @@ input_pickable = true
 collision_layer = 2
 collision_mask = 2
 collision/safe_margin = 0.08
-script = ExtResource( 3 )
+script = ExtResource( 6 )
 _sections_unfolded = [ "Collision", "collision" ]
-radius = null
-drawing = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EchoLocation"]
 
