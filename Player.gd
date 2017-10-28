@@ -12,6 +12,8 @@ var GRAVITY = 100
 
 var direction = 0
 var previous_direction = 0
+
+onready var animation_sprite = get_node("Sprite")
  
 func _ready():
     set_process(true)
@@ -22,24 +24,29 @@ func _input():
  
 func _process(delta):
 	if (Input.is_action_pressed("move_left")):
-		get_node("Sprite").set_flip_h(true)
-		get_node("Sprite").set_animation("Moving")
+		animation_sprite.set_flip_h(true)
+		animation_sprite.set_animation("Moving")
 		velocity.x = -SPEED
 		direction = -1
 	elif (Input.is_action_pressed("move_right")):
-		get_node("Sprite").set_flip_h(false)
-		get_node("Sprite").set_animation("Moving")
+		animation_sprite.set_flip_h(false)
+		animation_sprite.set_animation("Moving")
 		velocity.x = SPEED
 		direction = 1
 	else:
-		get_node("Sprite").set_animation("Resting")
 		velocity.x = 0
 		direction = 0
 		
 	if (Input.is_action_just_pressed("jump") && is_on_floor()):
+		animation_sprite.set_animation("Jumping")
 		velocity.y -= JUMP_FORCE
 		velocity.x += 200 * direction
 	else:
+		if (is_on_floor()):
+			animation_sprite.set_animation("Resting")
+		else:
+			if (velocity.y > 0):
+				animation_sprite.set_animation("Falling")
 		velocity.y += GRAVITY
 	
 	velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)
