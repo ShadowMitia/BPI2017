@@ -1,7 +1,6 @@
 extends KinematicBody2D
 
 
-
 var speed = Vector2(0, 0)
 var velocity = Vector2(0, 0)
 
@@ -27,6 +26,9 @@ enum RobotType {
 	
 var robot_type = null
 
+var booted = false
+var initialised = false
+
 enum FSM {
 	RESTING,
 	FALLING,
@@ -34,15 +36,24 @@ enum FSM {
 	IN_AIR
 	MOVING_LEFT,
 	MOVING_RIGHT,
-	CONTROLLING_ROBOT
+	ACTIVATING,
+	PLAYER_CLIMB_ON,
+	PLAYER_CLIMB_OFF
 	}
 	
 var current_state = FSM.RESTING
-var previous_state = FSM.RESTING 
+var previous_state = FSM.RESTING
+
+func init(player, robot_type):
+	robot_type = robot_type
+	player_ref = player
+	initialised = true
+	get_node("Sprite").play("activating")
 
 func give_control_back():
 	set_process(false)
 	player_ref.set_process(true)
+	player_ref.set_visible(true)
 	player_ref = null
 
 func _ready():
@@ -69,6 +80,12 @@ func do_animation_on_state():
 	elif current_state == FSM.IN_AIR:
 		print("In Air")
 		animation_sprite.play("Jumping")
+	elif current_state == FSM.ACTIVATING:
+		pass
+	elif current_state == FSM.PLAYER_CLIMB_OFF:
+		pass
+	elif current_state == FSM.PLAYER_CLIMB_ON:
+		pass
 	else:
 		print("No animation")
 		
@@ -76,7 +93,22 @@ func do_tactical_process(delta):
 	pass
 
 func do_shield_process(delta):
-	pass
+	if (Input.is_action_pressed("move_left")):
+		animation_sprite.set_flip_h(true)
+		current_state = FSM.MOVING_LEFT
+		velocity.x = -SPEED
+		direction = -1
+	elif (Input.is_action_pressed("move_right")):
+		animation_sprite.set_flip_h(false)
+		current_state = FSM.MOVING_RIGHT
+		velocity.x = SPEED
+		direction = 1
+	elif (Input.is_action_just_pressed("jump") && is_on_floor()):
+		# can't jump
+		pass
+	else:
+		velocity.x = 0
+		direction = 0
 	
 func do_elevator_process(delta):
 	pass
@@ -85,6 +117,9 @@ func do_hoverboard_process(delta):
 	pass
  
 func _process(delta):
+	if (!initialised):
+		print("NOT INITIALISED")
+	
 	if !is_on_floor() and current_state in [FSM.IN_AIR, FSM.JUMPING, FSM.MOVING_LEFT, FSM.MOVING_RIGHT, FSM.RESTING]:
 		print("not on floor and in fsm state")
 		if (velocity.y > 0):
@@ -92,6 +127,11 @@ func _process(delta):
 	else:
 		print("On the floor in resting position")
 		current_state = FSM.RESTING
+	
+	if robot_type == RobotType.SHIELD:
+		do_shield_process(delta)
+	else:
+		print("todo")
 	
 	#if (Input.is_action_pressed("move_left")):
 	#	animation_sprite.set_flip_h(true)
@@ -116,7 +156,7 @@ func _process(delta):
 		# don't do it here!
 		pass
 	elif Input.is_action_just_pressed("player_exit_robot"):
-		pass
+		give_control_back()
 		
 	# do_animation_on_state()
 
