@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Assets/Images/Decor/plateformes.png" type="Texture" id=1]
 [ext_resource path="res://PlatformContour.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Sounds/Sounds Effects/Echo response.ogg" type="AudioStream" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -30,5 +31,13 @@ position = Vector2( -0.0712738, 0.204865 )
 scale = Vector2( 3.2077, 3.43631 )
 shape = SubResource( 1 )
 script = ExtResource( 2 )
+
+[node name="EchoResponse" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 3 )
+volume_db = 15.0
+autoplay = false
+mix_target = 0
+bus = "Master"
 
 

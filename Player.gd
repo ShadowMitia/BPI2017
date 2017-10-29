@@ -23,7 +23,8 @@ enum FSM {
 	IN_AIR
 	MOVING_LEFT,
 	MOVING_RIGHT,
-	CONTROLLING_ROBOT
+	CONTROLLING_ROBOT,
+	DEAD
 	}
 	
 var current_state = FSM.RESTING
@@ -61,6 +62,12 @@ func do_animation_on_state():
 		print("No animation")
  
 func _process(delta):
+	if current_state == FSM.DEAD:
+		get_node("Dying").play()
+		while (get_node("Dying").is_playing()):
+			print("HAHA YOU'RE DEAD")
+		get_tree().reload_current_scene()
+	
 	if !is_on_floor() and current_state in [FSM.IN_AIR, FSM.JUMPING, FSM.MOVING_LEFT, FSM.MOVING_RIGHT, FSM.RESTING]:
 		#print("not on floor and in fsm state")
 		if (velocity.y > 0):
@@ -81,11 +88,17 @@ func _process(delta):
 		current_state = FSM.MOVING_LEFT
 		velocity.x = -SPEED
 		direction = -1
+		if not get_node("Movement").is_playing():
+			get_node("Movement").play()
 	elif (Input.is_action_pressed("move_right")):
 		animation_sprite.set_flip_h(false)
 		current_state = FSM.MOVING_RIGHT
 		velocity.x = SPEED
 		direction = 1
+		if not get_node("Movement").is_playing():
+			get_node("Movement").play()
+	else:
+		get_node("Movement").stop()
 
 	if Input.is_action_just_pressed("player_action"):
 		for object in robots:

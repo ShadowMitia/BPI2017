@@ -37,6 +37,7 @@ func _process(delta):
 	if (current_state == FSM.ECHOING_START):
 		emission_coordinate = Vector2(0, 0)
 		current_state = FSM.ECHOING
+		get_node("StartingEcho").play()
 	elif (current_state == FSM.ECHOING):
 		update_collision()
 		radius += 5
@@ -47,6 +48,8 @@ func _process(delta):
 	elif (current_state == FSM.ECHOING_END):
 		radius = RADIUS
 		current_state = FSM.STOP
+		get_node("StartingEcho").stop()
+		
 	else:
 		for object in collidedObjects.values():
 			object.get_node("CollisionShape2D").contour = false
@@ -66,4 +69,5 @@ func draw_circle_arc( center, radius, angle_from, angle_to, color ):
         points_arc.push_back( point )
     for indexPoint in range(nb_points):
         draw_line(points_arc[indexPoint], points_arc[indexPoint+1], color)
-		
+
+

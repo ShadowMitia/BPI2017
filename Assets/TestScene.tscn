@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Platform.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Assets/Images/Decor/arriere plan.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Images/Decor/contour ecran.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Images/Decor/premier plan.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Sounds/Sounds Effects/Activating Robot.ogg" type="AudioStream" id=7]
 
 [sub_resource type="GDScript" id=1]
 
@@ -89,5 +90,13 @@ scale = Vector2( 3, 3 )
 z = -999
 texture = ExtResource( 6 )
 _sections_unfolded = [ "Transform", "Z" ]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 7 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "Master"
 
 

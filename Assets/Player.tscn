@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Images/Aisha ne bouge pas.png" type="Texture" id=2]
@@ -8,6 +8,9 @@
 [ext_resource path="res://Assets/Images/A2.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Images/Atombe.png" type="Texture" id=7]
 [ext_resource path="res://EchoLocation.gd" type="Script" id=8]
+[ext_resource path="res://Assets/Sounds/Sounds Effects/Girl Starting Echo.ogg" type="AudioStream" id=9]
+[ext_resource path="res://Assets/Sounds/Sounds Effects/Dying Girl.ogg" type="AudioStream" id=10]
+[ext_resource path="res://Assets/Sounds/Sounds Effects/Walking Girl.ogg" type="AudioStream" id=11]
 
 [sub_resource type="SpriteFrames" id=1]
 
@@ -80,5 +83,29 @@ _sections_unfolded = [ "Collision", "collision" ]
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EchoLocation"]
 
 shape = SubResource( 3 )
+
+[node name="StartingEcho" type="AudioStreamPlayer" parent="EchoLocation"]
+
+stream = ExtResource( 9 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="Dying" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 10 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="Movement" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 11 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "Master"
 
 

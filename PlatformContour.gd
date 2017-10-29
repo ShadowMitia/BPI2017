@@ -21,3 +21,7 @@ func _draw():
 		var pos = get_position() - get_shape().get_extents()
 		var size = get_shape().get_extents() * 2
 		draw_rect(Rect2(pos, size), Color(255, 0, 0), false)
+		if not get_node("../EchoResponse").is_playing():
+			get_node("../EchoResponse").play()
+	else:
+		get_node("../EchoResponse").stop()

@@ -118,7 +118,12 @@ func do_animation_on_state():
 	elif current_state == FSM.ACTIVATING:
 		animation_running = true
 		animation_sprite.play("Activating")
+		if robot_type == RobotType.ELEVATOR:
+			get_node("ActivationSound").play()
+		elif robot_type == RobotType.SHIELD:
+			get_node("DeployingShield").play()
 		booted = true
+		current_state = FSM.RESTING
 	elif current_state == FSM.PLAYER_CLIMB_OFF:
 		animation_running = true
 		animation_sprite.play("PlayerOff")
@@ -158,25 +163,31 @@ func do_elevator_process(delta):
 		if (get_position().y < 0):
 			set_position(Vector2(get_position().x, 0))
 		antigravity = true
+		get_node("ElevatorMovement").play()
 	elif Input.is_action_pressed("move_down"):
 		set_position(get_position() + Vector2(0, SPEED))
 		antigravity = true
 		if (get_position().y > OS.get_window_size().y):
 			set_position(Vector2(get_position().x, OS.get_window_size().y))
+		get_node("ElevatorMovement").play()
 	elif (Input.is_action_pressed("move_left")):
 		animation_sprite.set_flip_h(false)
 		current_state = FSM.MOVING_LEFT
 		velocity.x = -SPEED
 		direction = -1
+		get_node("Movement").play()
 	elif (Input.is_action_pressed("move_right")):
 		animation_sprite.set_flip_h(true)
 		current_state = FSM.MOVING_RIGHT
 		velocity.x = SPEED
 		direction = 1
+		get_node("Movement").play()
 	else:
 		antigravity = false
 		velocity.x = 0
 		direction = 0
+		get_node("ElevatorMovement").stop()
+		get_node("Movement").stop()
 	
 func do_hoverboard_process(delta):
 	pass
@@ -228,10 +239,11 @@ func _process(delta):
 		
 
 func _on_SpriteShield_animation_finished():
+	print("finished shield")
 	animation_running = false
-	pass # replace with function body
-
+	get_node("ActivationSound").stop()
 
 func _on_SpriteVertigo_animation_finished():
+	print("finished vertigo")
 	animation_running = false
-	pass # replace with function body
+	get_node("DeployingShield").stop()

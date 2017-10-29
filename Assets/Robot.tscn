@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Assets/Robot.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Images/Shield/5.png" type="Texture" id=2]
@@ -15,6 +15,10 @@
 [ext_resource path="res://Assets/Images/RobotVertigo/2.png" type="Texture" id=13]
 [ext_resource path="res://Assets/Images/RobotVertigo/3.png" type="Texture" id=14]
 [ext_resource path="res://Assets/Images/RobotVertigo/1.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Sounds/Sounds Effects/Activating Robot.ogg" type="AudioStream" id=16]
+[ext_resource path="res://Assets/Sounds/Sounds Effects/Deploying Shield.ogg" type="AudioStream" id=17]
+[ext_resource path="res://Assets/Sounds/Sounds Effects/Robot Vertical Movement.ogg" type="AudioStream" id=18]
+[ext_resource path="res://Assets/Sounds/Sounds Effects/Robot Walking.ogg" type="AudioStream" id=19]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -52,7 +56,7 @@ animations = [ {
 "frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ) ],
 "loop": false,
 "name": "Activating",
-"speed": 5.0
+"speed": 2.0
 }, {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
@@ -91,7 +95,7 @@ animations = [ {
 "frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 10 ), ExtResource( 12 ) ],
 "loop": false,
 "name": "Activating",
-"speed": 5.0
+"speed": 0.9
 }, {
 "frames": [ ExtResource( 15 ) ],
 "loop": true,
@@ -160,6 +164,46 @@ _sections_unfolded = [ "Collision" ]
 
 position = Vector2( 0, -29.5906 )
 shape = SubResource( 3 )
+
+[node name="ActivationSound" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 16 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="DeployingShield" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 17 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="DeactivatingSound" type="AudioStreamPlayer" parent="."]
+
+stream = null
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="ElevatorMovement" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 18 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="Movement" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 19 )
+volume_db = 0.0
+autoplay = false
+mix_target = 0
+bus = "Master"
 
 [connection signal="animation_finished" from="SpriteShield" to="." method="_on_SpriteShield_animation_finished"]
 
