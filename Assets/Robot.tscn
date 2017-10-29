@@ -1,14 +1,20 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Assets/Robot.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Images/Shield/7.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Images/Shield/5.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Images/Shield/5.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Images/Shield/7.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Images/Shield/8.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Images/Shield/6.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Images/Shield/2.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Images/Shield/3.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Images/Shield/4.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Images/Shield/1.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Images/RobotVertigo/4.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Images/RobotVertigo/calinsansfon.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Images/RobotVertigo/calin2.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Images/RobotVertigo/2.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Images/RobotVertigo/3.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Images/RobotVertigo/1.png" type="Texture" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -20,35 +26,69 @@ extents = Vector2( 56.5888, 48.013 )
 animations = [ {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
-"name": "RestingPlayer",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
 "name": "Resting",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 4 ) ],
+"frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "Moving",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ) ],
+"frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "Falling",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "RestingPlayer",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 5 ), ExtResource( 2 ) ],
 "loop": false,
 "name": "PlayerOff",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 2 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ) ],
 "loop": false,
 "name": "Activating",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "Offline",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=4]
+
+animations = [ {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "Resting",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "Moving",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "Falling",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "RestingPlayer",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 10 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "Activating",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ) ],
 "loop": true,
 "name": "Offline",
 "speed": 5.0
@@ -80,6 +120,15 @@ shape = SubResource( 1 )
 position = Vector2( -1.05408, -54.4193 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 2 )
+animation = "Offline"
+playing = true
+_sections_unfolded = [ "Transform" ]
+
+[node name="SpriteVertigo" type="AnimatedSprite" parent="."]
+
+position = Vector2( -1.05408, -54.4193 )
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 4 )
 animation = "Offline"
 playing = true
 _sections_unfolded = [ "Transform" ]

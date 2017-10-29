@@ -52,7 +52,7 @@ func init(player):
 	initialised = true
 	current_state = FSM.ACTIVATING
 	set_process(true)
-	has_player = false
+	has_player = true
 	do_animation_on_state()
 
 func give_control_back():
@@ -61,11 +61,15 @@ func give_control_back():
 	player_ref.set_visible(true)
 	player_ref.set_position(get_position())
 	player_ref = null
+	has_player = false
 	set_process(false)
 	do_animation_on_state()
 
 func _ready():
 	get_node("CollisionShape2D").set_disabled(true)
+	get_node("SpriteShield").set_visible(false)
+	get_node("SpriteVertigo").set_visible(false)
+	
 	set_process(false)
 	if (editorRobotType.to_lower() == "shield"):
 		print("SHIELD")
@@ -76,6 +80,8 @@ func _ready():
 		animation_sprite = get_node("SpriteVertigo")
 	else:
 		animation_sprite = get_node("SpriteShield")
+		
+	animation_sprite.set_visible(true)
 		
 	do_animation_on_state()
 	
@@ -191,8 +197,6 @@ func _process(delta):
 		
 		previous_direction = direction
 		previous_state = current_state
-	else:
-		animation_sprite.play("offline")
 		
 
 	
