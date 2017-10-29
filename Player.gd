@@ -4,9 +4,9 @@ var speed = Vector2(0, 0)
 var velocity = Vector2(0, 0)
 
 var SPEED = 75
-var MAX_SPEED = 800
+var MAX_SPEED = 600
 
-var JUMP_FORCE = 5000
+var JUMP_FORCE = 800
 var GRAVITY = Vector2(0, 200)
 
 var direction = 0
@@ -29,6 +29,22 @@ enum FSM {
 	
 var current_state = FSM.RESTING
 var previous_state = FSM.RESTING 
+var dead = false
+
+func kill():
+	if dead:
+		return
+	get_node("Dying").play()
+	dead = true
+	var timer = Timer.new()
+	timer.set_wait_time(3)
+	timer.set_one_shot(true)
+	timer.start()
+	get_tree().add(timer)
+	yield(timer, "timeout")
+	get_tree().reload_current_scene()
+	
+	
 
 func _ready():
     set_process(true)
@@ -62,11 +78,6 @@ func do_animation_on_state():
 		print("No animation")
  
 func _process(delta):
-	if current_state == FSM.DEAD:
-		get_node("Dying").play()
-		while (get_node("Dying").is_playing()):
-			print("HAHA YOU'RE DEAD")
-		get_tree().reload_current_scene()
 	
 	if !is_on_floor() and current_state in [FSM.IN_AIR, FSM.JUMPING, FSM.MOVING_LEFT, FSM.MOVING_RIGHT, FSM.RESTING]:
 		#print("not on floor and in fsm state")
@@ -78,22 +89,21 @@ func _process(delta):
 		
 	if (Input.is_action_just_pressed("jump") && is_on_floor()):
 		current_state = FSM.JUMPING
-		velocity.y -= JUMP_FORCE
+		velocity.y += -JUMP_FORCE
 	else:
-		velocity.x = 0
 		direction = 0
 	
 	if (Input.is_action_pressed("move_left")):
 		animation_sprite.set_flip_h(true)
 		current_state = FSM.MOVING_LEFT
-		velocity.x = -SPEED
+		velocity.x += -SPEED
 		direction = -1
 		if not get_node("Movement").is_playing():
 			get_node("Movement").play()
 	elif (Input.is_action_pressed("move_right")):
 		animation_sprite.set_flip_h(false)
 		current_state = FSM.MOVING_RIGHT
-		velocity.x = SPEED
+		velocity.x += SPEED
 		direction = 1
 		if not get_node("Movement").is_playing():
 			get_node("Movement").play()
@@ -121,14 +131,19 @@ func _process(delta):
 		pass
 	
 	do_animation_on_state()
-
 	velocity += GRAVITY
 	velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)
-	velocity.y = clamp(velocity.y, -MAX_SPEED, MAX_SPEED)
+	velocity.y = clamp(velocity.y, -MAX_SPEED*2, MAX_SPEED)
 	
 	move_and_slide(velocity, Vector2(0, -1))
 	
 	previous_direction = direction
 	previous_state = current_state
 	
+	velocity.x = 0
 	
+	
+
+
+func _on_Area2D_area_entered( area ):
+	get_node("../Victory").z = 1000

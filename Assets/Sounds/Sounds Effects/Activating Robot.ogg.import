@@ -6,5 +6,5 @@ path="res://.import/Activating Robot.ogg-a90c726d870870800593e9ce5fb863e2.oggstr
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

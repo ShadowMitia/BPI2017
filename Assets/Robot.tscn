@@ -9,12 +9,12 @@
 [ext_resource path="res://Assets/Images/Shield/3.png" type="Texture" id=7]
 [ext_resource path="res://Assets/Images/Shield/4.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Images/Shield/1.png" type="Texture" id=9]
-[ext_resource path="res://Assets/Images/RobotVertigo/4.png" type="Texture" id=10]
-[ext_resource path="res://Assets/Images/RobotVertigo/calinsansfon.png" type="Texture" id=11]
-[ext_resource path="res://Assets/Images/RobotVertigo/calin2.png" type="Texture" id=12]
-[ext_resource path="res://Assets/Images/RobotVertigo/2.png" type="Texture" id=13]
-[ext_resource path="res://Assets/Images/RobotVertigo/3.png" type="Texture" id=14]
-[ext_resource path="res://Assets/Images/RobotVertigo/1.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Images/Vertigo/4.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Images/Vertigo/calinsansfon.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Images/Vertigo/calin2.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Images/Vertigo/1.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Images/Vertigo/2.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Images/Vertigo/3.png" type="Texture" id=15]
 [ext_resource path="res://Assets/Sounds/Sounds Effects/Activating Robot.ogg" type="AudioStream" id=16]
 [ext_resource path="res://Assets/Sounds/Sounds Effects/Deploying Shield.ogg" type="AudioStream" id=17]
 [ext_resource path="res://Assets/Sounds/Sounds Effects/Robot Vertical Movement.ogg" type="AudioStream" id=18]
@@ -69,7 +69,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="SpriteFrames" id=4]
+[sub_resource type="SpriteFrames" id=3]
 
 animations = [ {
 "frames": [ ExtResource( 10 ) ],
@@ -92,23 +92,23 @@ animations = [ {
 "name": "RestingPlayer",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 10 ), ExtResource( 12 ) ],
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 10 ) ],
 "loop": false,
 "name": "Activating",
 "speed": 0.9
 }, {
-"frames": [ ExtResource( 15 ) ],
+"frames": [ ExtResource( 13 ) ],
 "loop": true,
 "name": "Offline",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 10 ), ExtResource( 12 ) ],
+"frames": [ ExtResource( 10 ), ExtResource( 11 ) ],
 "loop": true,
 "name": "PlayerOn",
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
 
 custom_solver_bias = 0.0
 extents = Vector2( 138.335, 96.8402 )
@@ -142,7 +142,7 @@ _sections_unfolded = [ "Transform" ]
 
 position = Vector2( -1.05408, -54.4193 )
 scale = Vector2( 0.5, 0.5 )
-frames = SubResource( 4 )
+frames = SubResource( 3 )
 animation = "Offline"
 playing = true
 _sections_unfolded = [ "Transform" ]
@@ -163,7 +163,7 @@ _sections_unfolded = [ "Collision" ]
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 
 position = Vector2( 0, -29.5906 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="ActivationSound" type="AudioStreamPlayer" parent="."]
 

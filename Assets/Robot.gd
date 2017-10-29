@@ -92,6 +92,7 @@ func _ready():
 	
 func do_animation_on_state():
 	if (animation_running):
+		print("ignore")
 		return
 	
 	if current_state == FSM.RESTING:

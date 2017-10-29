@@ -44,7 +44,7 @@ func _process(delta):
 		if (radius > 300):
 			current_state = FSM.ECHOING_END
 		for obj in collidedObjects.values():
-			obj.get_node("CollisionShape2D").contour = true
+			obj.contour = true
 	elif (current_state == FSM.ECHOING_END):
 		radius = RADIUS
 		current_state = FSM.STOP
@@ -52,7 +52,7 @@ func _process(delta):
 		
 	else:
 		for object in collidedObjects.values():
-			object.get_node("CollisionShape2D").contour = false
+			object.contour = false
 		collidedObjects.clear()
 	update()
 	

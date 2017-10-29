@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Images/Aisha ne bouge pas.png" type="Texture" id=2]
@@ -46,7 +46,14 @@ extents = Vector2( 10.9122, 27.4598 )
 custom_solver_bias = 0.0
 radius = 10.0
 
-[node name="Player" type="KinematicBody2D"]
+[sub_resource type="RectangleShape2D" id=4]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 101.038 )
+
+[node name="Player" type="KinematicBody2D" groups=[
+"Player",
+]]
 
 z = 100
 input_pickable = false
@@ -107,5 +114,21 @@ volume_db = 0.0
 autoplay = false
 mix_target = 0
 bus = "Master"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+
+position = Vector2( 3.74286, 0 )
+scale = Vector2( 4.90092, 1 )
+shape = SubResource( 4 )
 
 
