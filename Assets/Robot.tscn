@@ -58,6 +58,11 @@ animations = [ {
 "loop": true,
 "name": "Offline",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ) ],
+"loop": false,
+"name": "PlayerOn",
+"speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=4]
@@ -84,13 +89,18 @@ animations = [ {
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 10 ), ExtResource( 12 ) ],
-"loop": true,
+"loop": false,
 "name": "Activating",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 15 ) ],
 "loop": true,
 "name": "Offline",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "PlayerOn",
 "speed": 5.0
 } ]
 
@@ -150,5 +160,9 @@ _sections_unfolded = [ "Collision" ]
 
 position = Vector2( 0, -29.5906 )
 shape = SubResource( 3 )
+
+[connection signal="animation_finished" from="SpriteShield" to="." method="_on_SpriteShield_animation_finished"]
+
+[connection signal="animation_finished" from="SpriteVertigo" to="." method="_on_SpriteVertigo_animation_finished"]
 
 

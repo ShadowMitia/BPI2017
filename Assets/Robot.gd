@@ -18,6 +18,8 @@ var animation_sprite = null
 
 var antigravity = false
 
+var animation_running = false
+
 enum RobotType {
 	SHIELD,
 	TACTICAL,
@@ -42,6 +44,7 @@ enum FSM {
 	MOVING_LEFT,
 	MOVING_RIGHT,
 	ACTIVATING,
+	PLAYER_CLIMB_ON,
 	PLAYER_CLIMB_OFF,
 	OFFLINE
 	}
@@ -88,7 +91,7 @@ func _ready():
 	do_animation_on_state()
 	
 func do_animation_on_state():
-	if (animation_sprite.is_playing()):
+	if (animation_running):
 		return
 	
 	if current_state == FSM.RESTING:
@@ -101,6 +104,7 @@ func do_animation_on_state():
 		#print("Falling")
 		animation_sprite.play("Falling")
 	elif current_state == FSM.JUMPING:
+		animation_running = true
 		#print("Resting")
 		animation_sprite.play("Resting")
 		animation_sprite.play("Jumping")
@@ -112,11 +116,16 @@ func do_animation_on_state():
 		#print("In Air")
 		animation_sprite.play("Jumping")
 	elif current_state == FSM.ACTIVATING:
+		animation_running = true
 		animation_sprite.play("Activating")
 		booted = true
 	elif current_state == FSM.PLAYER_CLIMB_OFF:
+		animation_running = true
 		animation_sprite.play("PlayerOff")
 		current_state = FSM.OFFLINE
+	elif current_state == FSM.PLAYER_CLIMB_ON:
+		animation_running = true
+		animation_sprite.play("PlayerOn")
 	elif current_state == FSM.OFFLINE:
 		animation_sprite.play("Offline")
 	else:
@@ -146,10 +155,14 @@ func do_shield_process(delta):
 func do_elevator_process(delta):
 	if Input.is_action_pressed("move_up"):
 		set_position(get_position() + Vector2(0, -SPEED))
+		if (get_position().y < 0):
+			set_position(Vector2(get_position().x, 0))
 		antigravity = true
 	elif Input.is_action_pressed("move_down"):
 		set_position(get_position() + Vector2(0, SPEED))
 		antigravity = true
+		if (get_position().y > OS.get_window_size().y):
+			set_position(Vector2(get_position().x, OS.get_window_size().y))
 	elif (Input.is_action_pressed("move_left")):
 		animation_sprite.set_flip_h(false)
 		current_state = FSM.MOVING_LEFT
@@ -214,5 +227,11 @@ func _process(delta):
 		previous_state = current_state
 		
 
-	
-	
+func _on_SpriteShield_animation_finished():
+	animation_running = false
+	pass # replace with function body
+
+
+func _on_SpriteVertigo_animation_finished():
+	animation_running = false
+	pass # replace with function body
