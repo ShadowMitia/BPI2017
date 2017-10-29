@@ -1,0 +1,10 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Girl Starting Echo.ogg-45d61c57516a55b44e7fa556636cc730.oggstr"
+
+[params]
+
+loop=true
+loop_offset=0

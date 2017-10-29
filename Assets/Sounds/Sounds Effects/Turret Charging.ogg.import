@@ -1,0 +1,10 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Turret Charging.ogg-05df2cba243f871af9f37b9c01456a16.oggstr"
+
+[params]
+
+loop=true
+loop_offset=0

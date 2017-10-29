@@ -1,0 +1,10 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Spaceship Approaching 1.ogg-5020d35a5b3418464d8339e2462a994f.oggstr"
+
+[params]
+
+loop=true
+loop_offset=0

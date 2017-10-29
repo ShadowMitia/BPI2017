@@ -1,0 +1,10 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Landing Girl.ogg-42a6e3f9796b4c43c1bd27922db147e9.oggstr"
+
+[params]
+
+loop=true
+loop_offset=0

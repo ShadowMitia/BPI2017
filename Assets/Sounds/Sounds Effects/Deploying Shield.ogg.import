@@ -1,0 +1,10 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Deploying Shield.ogg-b67a2150513987edccac45e0cef552ce.oggstr"
+
+[params]
+
+loop=true
+loop_offset=0

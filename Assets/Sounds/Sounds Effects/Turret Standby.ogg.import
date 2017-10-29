@@ -1,0 +1,10 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Turret Standby.ogg-ad3666551241aeba9e37025f74b24ac6.oggstr"
+
+[params]
+
+loop=true
+loop_offset=0

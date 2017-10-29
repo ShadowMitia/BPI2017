@@ -1,0 +1,10 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Robot Vertical Movement.ogg-9d446c17173858167075b1a8fcbc253f.oggstr"
+
+[params]
+
+loop=true
+loop_offset=0
