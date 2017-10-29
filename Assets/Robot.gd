@@ -3,7 +3,7 @@ extends KinematicBody2D
 var speed = Vector2(0, 0)
 var velocity = Vector2(0, 0)
 
-var SPEED = 200
+var SPEED = 100
 var MAX_SPEED = 800
 
 var JUMP_FORCE = 50000
@@ -15,6 +15,8 @@ var previous_direction = 0
 var player_ref = null
 
 var animation_sprite = null
+
+var antigravity = false
 
 enum RobotType {
 	SHIELD,
@@ -142,14 +144,26 @@ func do_shield_process(delta):
 		direction = 0
 	
 func do_elevator_process(delta):
-	if Input.is_action_just_pressed("move_up"):
-		pass
-	elif Input.is_action_just_pressed("move_down"):
-		pass
-	elif Input.is_action_just_pressed("move_left"):
+	if Input.is_action_pressed("move_up"):
+		set_position(get_position() + Vector2(0, -SPEED))
+		antigravity = true
+	elif Input.is_action_pressed("move_down"):
+		set_position(get_position() + Vector2(0, SPEED))
+		antigravity = true
+	elif (Input.is_action_pressed("move_left")):
 		animation_sprite.set_flip_h(false)
-	elif Input.is_action_just_pressed("move_right"):
+		current_state = FSM.MOVING_LEFT
+		velocity.x = -SPEED
+		direction = -1
+	elif (Input.is_action_pressed("move_right")):
 		animation_sprite.set_flip_h(true)
+		current_state = FSM.MOVING_RIGHT
+		velocity.x = SPEED
+		direction = 1
+	else:
+		antigravity = false
+		velocity.x = 0
+		direction = 0
 	
 func do_hoverboard_process(delta):
 	pass
@@ -189,7 +203,8 @@ func _process(delta):
 		
 		do_animation_on_state()
 		
-		velocity += GRAVITY
+		if !antigravity:
+			velocity += GRAVITY
 		velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)
 		velocity.y = clamp(velocity.y, -MAX_SPEED, MAX_SPEED)
 		
