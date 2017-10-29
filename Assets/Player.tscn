@@ -22,7 +22,7 @@ animations = [ {
 "name": "Resting",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
+"frames": [ ExtResource( 4 ) ],
 "loop": false,
 "name": "Jumping",
 "speed": 5.0
@@ -30,7 +30,7 @@ animations = [ {
 "frames": [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 7 ) ],
 "loop": true,
 "name": "Moving",
-"speed": 8.0
+"speed": 3.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=3]
@@ -47,18 +47,18 @@ radius = 10.0
 
 z = 100
 input_pickable = false
-collision_layer = 1
-collision_mask = 1
+collision_layer = 5
+collision_mask = 5
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
-_sections_unfolded = [ "Z" ]
+_sections_unfolded = [ "Collision", "Z" ]
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 
 position = Vector2( -19.8057, 1.76051 )
 scale = Vector2( 0.3, 0.3 )
 frames = SubResource( 4 )
-animation = "Falling"
+animation = "Resting"
 playing = true
 _sections_unfolded = [ "Transform" ]
 

@@ -34,9 +34,6 @@ func _ready():
 	set_process(true)
 	
 func _process(delta):
-	if (Input.is_action_just_pressed("player_action")):
-		current_state = FSM.ECHOING_START
-		
 	if (current_state == FSM.ECHOING_START):
 		emission_coordinate = Vector2(0, 0)
 		current_state = FSM.ECHOING
@@ -49,7 +46,7 @@ func _process(delta):
 			obj.get_node("CollisionShape2D").contour = true
 	elif (current_state == FSM.ECHOING_END):
 		radius = RADIUS
-		current_state = FSM.STOP	
+		current_state = FSM.STOP
 	else:
 		for object in collidedObjects.values():
 			object.get_node("CollisionShape2D").contour = false

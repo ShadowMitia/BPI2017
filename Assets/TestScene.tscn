@@ -1,9 +1,31 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Assets/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Assets/Platform.tscn" type="PackedScene" id=2]
 
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Node2D
+	
+#onready var player_objects = [get_tree().get_nodes_in_group((\"Misha\"), get_tree().get_nodes_in_group(\"Robots\")]
+onready var player_index = 0
+
+func _ready():
+	set_process(true)
+	
+func switch_player(new_player):
+	pass
+	
+	
+func _process(delta):
+	pass
+		"
+
 [node name="Node" type="Node"]
+
+[node name="PlayerManager" type="Node2D" parent="."]
+
+script = SubResource( 1 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 
