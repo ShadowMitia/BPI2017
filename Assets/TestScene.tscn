@@ -56,5 +56,6 @@ position = Vector2( 709.739, 346.728 )
 [node name="Robot" parent="." instance=ExtResource( 3 )]
 
 position = Vector2( 1645.62, 862.755 )
+editorRobotType = "SHIELD"
 
 

@@ -9,6 +9,9 @@
 
 [node name="Player" parent="PlayerManager" instance=ExtResource( 1 )]
 
+position = Vector2( 500, 550 )
+_sections_unfolded = [ "Collision", "Transform", "Z" ]
+
 [node name="RobotsManager" type="Node2D" parent="."]
 
 [node name="TurrentsManager" type="Node2D" parent="."]

@@ -1,6 +1,5 @@
 extends KinematicBody2D
 
-
 var speed = Vector2(0, 0)
 var velocity = Vector2(0, 0)
 
@@ -16,10 +15,6 @@ var previous_direction = 0
 onready var animation_sprite = get_node("Sprite")
 onready var robots = get_tree().get_nodes_in_group("Robots")
 
-enum PlayerControll {
-	PLAYER,
-	ROBOT
-	}
 	
 enum FSM {
 	RESTING,
@@ -91,9 +86,7 @@ func _process(delta):
 		current_state = FSM.MOVING_RIGHT
 		velocity.x = SPEED
 		direction = 1
-	
 
-	
 	if Input.is_action_just_pressed("player_action"):
 		for object in robots:
 			var collshape = object.get_node("Area2D/CollisionShape2D")
@@ -101,9 +94,11 @@ func _process(delta):
 				continue
 			var collided = get_node("CollisionShape2D").get_shape().collide(get_node("CollisionShape2D").get_global_transform(), collshape.get_shape(), collshape.get_global_transform())
 			if collided:
-				object.init(self, object.RobotType.SHIELD)
+				object.init(self)
 				set_process(false)
 				set_visible(false)
+				set_position(Vector2(10000, 100000))
+				object.get_node("CollisionShape2D").set_disabled(false)
 				return
 	elif Input.is_action_just_pressed("player_echolocation"):
 		var echo_lo = get_node("EchoLocation")

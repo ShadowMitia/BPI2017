@@ -10,12 +10,13 @@ extents = Vector2( 10, 10 )
 
 [node name="Platform" type="KinematicBody2D" groups=[
 "echolocation",
+"Platforms",
 ]]
 
 position = Vector2( 250, 300 )
 scale = Vector2( 6, 0.5 )
 input_pickable = true
-collision_layer = 3
+collision_layer = 1
 collision_mask = 3
 collision/safe_margin = 0.08
 _sections_unfolded = [ "Collision", "Transform" ]
